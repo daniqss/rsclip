@@ -1,5 +1,8 @@
-// mod clipboard;
-// use clipboard::*;
+
+use std::io;
+use std::fs;
+use clipboard::ClipboardProvider;
+use clipboard::ClipboardContext;
 
 enum Option {
     Help,
@@ -24,16 +27,16 @@ pub fn manage_arguments(arg: Vec<String>) {
     };
 
     match opt {
-        Option::Help => help_opt (),
-        Option::Version => version_opt (),
+        Option::Help => help (),
+        Option::Version => version (),
         Option::Copy => {
-            if arg.len() == 3 { copy_opt (arg[2]) }
+            if arg.len() == 3 { copy (&arg[2]) }
             else { println! ("Error: Invalid number of arguments", ) }
             
         },
         Option::Paste => {
             if arg.len() > 1 { println! ("Error: Too many arguments", ) }
-            else { paste_opt () }
+            else { paste () }
         },
         Option::Error (msg) => println! ("Error: {}", msg),
       };
@@ -41,7 +44,7 @@ pub fn manage_arguments(arg: Vec<String>) {
 }
 
 
-fn help_opt() {
+fn help() {
     println!("Usage: ./main [OPTION]... [FILE]...");
     println!("Copy to clipboard the contents of FILE, or standard input if none.");
     println!("");
@@ -52,15 +55,44 @@ fn help_opt() {
     println!("");
 }
 
-fn version_opt () {
+fn version () {
     println!("version");
 }
 
-fn paste_opt() {
-    println!("paste");
+pub fn paste() {
+    // paste the last copied element
+    println!("paste🥛");
+    write_selection_data();
+
 }
 
-fn copy_opt(file_name: String) {
-    println!("copy");
+fn write_selection_data() {
+    // Write in a json file information about the last copied element
+    println!("write pasted🍝");
+
+} 
+
+fn copy(file_name: &String) {
+    
+    let file_content = read_file(file_name).expect("Cannot read file");
+
+    println!("{}", file_content);
+
+    let mut context: ClipboardContext = ClipboardProvider::new().unwrap();
+    context.set_contents(file_content.to_owned()).unwrap();
+
+    println!("copy📋 {}", context.get_contents().unwrap());
+
+}
+
+fn read_file(file_name: &String) -> Result<String, io::Error> {
+    
+    let file_content: String;
+
+    file_content = fs::read_to_string(file_name)
+                    .expect("Cannot read file");
+    print!("{}", file_content);
+
+    Ok(file_content)
 }
 
