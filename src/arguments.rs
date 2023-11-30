@@ -1,8 +1,9 @@
+extern crate copypasta;
+use copypasta::{ClipboardContext, ClipboardProvider};
+
 
 use std::io;
 use std::fs;
-use clipboard::ClipboardProvider;
-use clipboard::ClipboardContext;
 
 enum Option {
     Help,
@@ -25,6 +26,7 @@ pub fn manage_arguments(arg: Vec<String>) {
             _ => Option::Error("Invalid option".to_string()),
         }
     };
+
 
     match opt {
         Option::Help => help (),
@@ -56,33 +58,56 @@ fn help() {
 }
 
 fn version () {
-    println!("version");
+    const PKG_VERSION: &str = env!("CARGO_PKG_VERSION");
+
+    println!("Version: {}", PKG_VERSION);
 }
+
+/// Paste the clipboard content
+///
+/// # Examples
+///
+/// ``` bash
+/// rclip -p
+/// Your clipboard content
+/// 
+/// ```
 
 pub fn paste() {
-    // paste the last copied element
-    println!("paste🥛");
-    write_selection_data();
+
+    let mut ctx = ClipboardContext::new().unwrap();
+
+    let clipboard_content = ctx.get_contents().unwrap();
+    print!("{}", clipboard_content);
+    // write_selection_data();
 
 }
 
-fn write_selection_data() {
-    // Write in a json file information about the last copied element
-    println!("write pasted🍝");
+// fn write_selection_data() {
+//     // Write in a json file information about the last copied element
+//     println!("write pasted🍝");
 
-} 
+// } 
+
+/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
 
 fn copy(file_name: &String) {
     
     let file_content = read_file(file_name).expect("Cannot read file");
+    // Get the content of the file
 
-    println!("{}", file_content);
-
-    let mut context: ClipboardContext = ClipboardProvider::new().unwrap();
-    context.set_contents(file_content.to_owned()).unwrap();
-
-    println!("copy📋 {}", context.get_contents().unwrap());
-
+    let mut ctx = ClipboardContext::new().unwrap();
+    ctx.set_contents(file_content.to_owned()).unwrap();
+    // Copy the content to the clipboard
 }
 
 fn read_file(file_name: &String) -> Result<String, io::Error> {
@@ -91,7 +116,7 @@ fn read_file(file_name: &String) -> Result<String, io::Error> {
 
     file_content = fs::read_to_string(file_name)
                     .expect("Cannot read file");
-    print!("{}", file_content);
+    // print!("{}", file_content);
 
     Ok(file_content)
 }
