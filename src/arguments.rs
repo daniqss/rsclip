@@ -83,21 +83,14 @@ pub fn paste() {
 
 }
 
-// fn write_selection_data() {
-//     // Write in a json file information about the last copied element
-//     println!("write pasted🍝");
 
-// } 
-
-/// Adds one to the number given.
+/// Paste the clipboard content
 ///
 /// # Examples
 ///
-/// ```
-/// let arg = 5;
-/// let answer = my_crate::add_one(arg);
-///
-/// assert_eq!(6, answer);
+/// ``` bash
+/// rclip -c file.txt
+/// 
 /// ```
 
 fn copy(file_name: &String) {
