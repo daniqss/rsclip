@@ -31,4 +31,6 @@ $ rclip <file>
 $ rclip -c <file>
 $ rclip --copy <file>
 ```
-
+## todo
+- [ ] Config files to change default behavior
+- [ ] Add clipboard history
