@@ -1,11 +1,11 @@
 [package]
-name = "rclip"
+name = "rsclip"
 version = "0.1.0"
 edition = "2021"
 readme = "README.md"
 authors = ["ranicocs"]
 license = "MIT"
-repository = "https://github.com/ranicocs/rclip"
+repository = "https://github.com/ranicocs/rsclip"
 keywords = ["cli", "rust", "clipboard"]
 categories = ["command-line-utilities"]
 description = "CLI utility to copy the contents of a file to the clipboard written in Rust"
@@ -24,6 +24,5 @@ debug = true
 
 
 [dependencies]
-copypasta = "0.10.0"
 copypasta-ext = "0.4.4"
 
