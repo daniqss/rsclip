@@ -2,6 +2,12 @@
 name = "rclip"
 version = "0.1.0"
 edition = "2021"
+readme = "README.md"
+authors = ["ranicocs"]
+license = "MIT"
+repository = "https://github.com/ranicocs/rclip"
+keywords = ["cli", "rust", "clipboard"]
+categories = ["command-line-utilities"]
 
 
 [profile.release]
@@ -10,7 +16,12 @@ lto = true
 codegen-units = 1 
 panic = "abort"
 
+[profile.dev]
+opt-level = 0
+debug = true
+
 
 [dependencies]
 copypasta = "0.10.0"
+copypasta-ext = "0.4.4"
 

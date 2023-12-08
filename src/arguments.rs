@@ -1,6 +1,6 @@
-extern crate copypasta;
-use copypasta::{ClipboardContext, ClipboardProvider};
-
+extern crate copypasta_ext;
+use copypasta_ext::prelude::*;
+use copypasta_ext::x11_fork::ClipboardContext;
 
 use std::io;
 use std::fs;
@@ -31,13 +31,9 @@ pub fn manage_arguments(arg: Vec<String>) {
     match opt {
         Option::Help => help (),
         Option::Version => version (),
-        Option::Copy => {
-            if arg.len() == 3 { copy (&arg[2]) }
-            else { println! ("Error: Invalid number of arguments", ) }
-            
-        },
+        Option::Copy => copy(&arg[arg.len() - 1]),
         Option::Paste => {
-            if arg.len() > 1 { println! ("Error: Too many arguments", ) }
+            if arg.len() > 2 { println! ("Error: Too many arguments", ) }
             else { paste () }
         },
         Option::Error (msg) => println! ("Error: {}", msg),
@@ -75,7 +71,7 @@ fn version () {
 
 pub fn paste() {
 
-    let mut ctx = ClipboardContext::new().unwrap();
+    let mut ctx = copypasta_ext::try_context().expect("Failed to get clipboard context");
 
     let clipboard_content = ctx.get_contents().unwrap();
     print!("{}", clipboard_content);
@@ -95,22 +91,24 @@ pub fn paste() {
 
 fn copy(file_name: &String) {
     
-    let file_content = read_file(file_name).expect("Cannot read file");
-    // Get the content of the file
+    let file_content = match read_file(file_name) {
+        Ok(content) => content,
+        Err(err) => {
+            eprintln!("{}", err);
+            return;
+        }
+    };
 
     let mut ctx = ClipboardContext::new().unwrap();
+
     ctx.set_contents(file_content.to_owned()).unwrap();
     // Copy the content to the clipboard
 }
 
 fn read_file(file_name: &String) -> Result<String, io::Error> {
-    
-    let file_content: String;
-
-    file_content = fs::read_to_string(file_name)
-                    .expect("Cannot read file");
-    // print!("{}", file_content);
-
-    Ok(file_content)
+    match fs::read_to_string(file_name) {
+        Ok(file_content) => Ok(file_content),
+        Err(err) => Err(err),
+    }
 }
 
