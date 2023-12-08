@@ -8,6 +8,8 @@ license = "MIT"
 repository = "https://github.com/ranicocs/rclip"
 keywords = ["cli", "rust", "clipboard"]
 categories = ["command-line-utilities"]
+description = "CLI utility to copy the contents of a file to the clipboard written in Rust"
+
 
 
 [profile.release]
