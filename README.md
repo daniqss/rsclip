@@ -1,4 +1,4 @@
-# rclip
+# rsclip
 CLI utility to copy the contents of a file to the clipboard written in Rust.
 Inspired in xclip. Supports X11.
 
