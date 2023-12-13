@@ -34,3 +34,4 @@ $ rclip --copy <file>
 ## todo
 - [ ] Config files to change default behavior
 - [ ] Add clipboard history
+- [ ] Add colorful output
