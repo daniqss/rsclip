@@ -35,3 +35,4 @@ $ rclip --copy <file>
 - [ ] Config files to change default behavior
 - [ ] Add clipboard history
 - [ ] Add colorful output
+- [ ] Add clear flag
