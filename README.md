@@ -36,5 +36,6 @@ $ rclip --copy <file>
 - [ ] Add clipboard history
 - [ ] Add colorful output
 - [ ] Add clear flag
-- [ ] Copy from pipe
+- [X] Copy from pipe
 - [ ] Test
+- [ ] Sanitize clipboard contect
