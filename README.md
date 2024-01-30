@@ -36,3 +36,4 @@ $ rclip --copy <file>
 - [ ] Add clipboard history
 - [ ] Add colorful output
 - [ ] Add clear flag
+- [ ] Allow redirections
