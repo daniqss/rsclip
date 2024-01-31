@@ -41,10 +41,11 @@ $ rclip -c <file>
 $ rclip --copy <file>
 ```
 ## todo
+- [X] Copy from pipe
 - [ ] Config files to change default behavior
 - [ ] Add clipboard history
 - [ ] Add colorful output
 - [ ] Add clear flag
-- [X] Copy from pipe
 - [ ] Test
 - [ ] Sanitize clipboard contect
+- [ ] Migrate to clap for argument management
