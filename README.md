@@ -10,17 +10,26 @@ cargo install rclip
 ```
 
 ## Usage
+### Copy from pipe
+Copy the contents of a pipe to the clipboard.
+
+```bash
+$ echo "Hello world" | rsclip
+$ rsclip
+Hello world
+```
+
 
 ### Paste
 Paste the contents of a file to the clipboard.
 
 ```bash
 $ rclip
-Clipboard contents
+Clipboard content
 $ rclip -p
-Clipboard contents
+Clipboard content
 $ rclip --paste
-Clipboard contents
+Clipboard content
 ```
 
 ### Copy
