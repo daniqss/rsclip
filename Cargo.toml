@@ -1,6 +1,6 @@
 [package]
 name = "rsclip"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 readme = "README.md"
 authors = ["ranicocs"]
@@ -26,5 +26,3 @@ debug = true
 [dependencies]
 atty = "0.2.14"
 copypasta-ext = "0.4.4"
-libc = "0.2.152"
-
