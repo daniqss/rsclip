@@ -31,7 +31,7 @@ pub fn manage_arguments(arg: Vec<String>) {
     match opt {
         Option::Help => help (),
         Option::Version => version (),
-        Option::Copy => copy(&arg[arg.len() - 1]),
+        Option::Copy => copy_file(&arg[arg.len() - 1]),
         Option::Paste => {
             if arg.len() > 2 { println! ("Error: Too many arguments", ) }
             else { paste () }
@@ -89,20 +89,35 @@ pub fn paste() {
 /// 
 /// ```
 
-fn copy(file_name: &String) {
+fn copy_file(file_name: &String) {
     
     let file_content = match read_file(file_name) {
         Ok(content) => content,
         Err(err) => {
-            eprintln!("{}", err);
+            eprintln!("Error reading file {}:\n{}", file_name, err);
             return;
         }
     };
 
-    let mut ctx = ClipboardContext::new().unwrap();
+    copy(file_content.to_owned())
 
-    ctx.set_contents(file_content.to_owned()).unwrap();
     // Copy the content to the clipboard
+}
+
+pub fn copy(content: String) {
+    // Crear un contexto del portapapeles
+    let mut ctx = match ClipboardContext::new() {
+        Ok(ctx) => ctx,
+        Err(err) =>  {
+            eprintln!("Error creating clipboard context: {}", err.to_string());
+            return;
+        }
+    };
+
+    // Intentar establecer el contenido en el portapapeles
+    if let Err(err) = ctx.set_contents(content) {
+        eprintln!("Error setting clipboard contents: {}", err.to_string());
+    } 
 }
 
 fn read_file(file_name: &String) -> Result<String, io::Error> {

@@ -24,5 +24,7 @@ debug = true
 
 
 [dependencies]
+atty = "0.2.14"
 copypasta-ext = "0.4.4"
+libc = "0.2.152"
 
