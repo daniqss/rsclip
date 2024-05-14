@@ -42,6 +42,7 @@ $ rclip --copy <file>
 ```
 ## todo
 - [X] Copy from pipe
+- [ ] Solve issues under Wayland
 - [ ] Config files to change default behavior
 - [ ] Add clipboard history
 - [ ] Add colorful output
